@@ -1,0 +1,68 @@
+@use '../core/mixins' as mixins;
+
+.jk-btn {
+    @include mixins.btn-base;
+    padding: 0.5rem 1rem;
+    background: var(--gray);
+    color: var(--black);
+
+    &.jk-disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    // Variants
+    &.jk-btn-primary {
+        background: var(--primary);
+        color: var(--white);
+
+        &:hover {
+            background: var(--primary-dark);
+        }
+    }
+
+    &.jk-btn-danger {
+        background: var(--danger);
+        color: var(--white);
+
+        &:hover {
+            background: var(--danger-hover);
+        }
+    }
+
+    &.jk-btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+
+        &:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+    }
+
+    &.jk-btn-success {
+        background: var(--success);
+        color: var(--white);
+
+        &:hover {
+            background: var(--success-hover);
+        }
+    }
+
+    // Sizes
+    &.jk-btn-sm {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    &.jk-btn-md {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    &.jk-btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.125rem;
+    }
+}

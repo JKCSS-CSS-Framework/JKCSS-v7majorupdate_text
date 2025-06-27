@@ -1,0 +1,19 @@
+{
+  "name": "jkcss-v7majorupdate_text",
+  "version": "1.0.0",
+  "main": "vite.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build && mv dist/style-*.css dist/jkcss.min.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.89.2"
+  }
+}

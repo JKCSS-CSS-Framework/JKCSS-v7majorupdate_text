@@ -1,0 +1,13 @@
+@mixin btn-transition {
+    transition: all 0.3s ease;
+}
+
+@mixin btn-base {
+    display: inline-block;
+    font-family: var(--font-base);
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    @include btn-transition;
+}
