@@ -1,3 +1,5 @@
+@use './variables' as vars;
+
 @mixin btn-transition {
     transition: all 0.3s ease;
 }
@@ -9,5 +11,20 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    @include btn-transition;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    user-select: none;
+    line-height: 1.2;
+}
+
+@mixin respond-to($breakpoint) {
+  $size: map-get(vars.$breakpoints, $breakpoint);
+
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  } @else {
+    @warn "No value found for breakpoint `#{$breakpoint}`.";
+  }
 }

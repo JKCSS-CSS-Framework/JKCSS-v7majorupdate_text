@@ -1,5 +1,6 @@
-@use 'core/variables';
-@use 'core/mixins';
 @use 'components/button';
-@use 'utilities/spacing';
 @use 'utilities/colors';
+
+@use 'core/variables' as *;
+@use 'core/mixins' as *;
+@use 'utilities/spacing' as *;

@@ -1,33 +1,76 @@
-// Padding Utilities
-.p-1 {
-    padding: 0.25rem;
+@use 'sass:string';
+@use 'sass:map';
+
+@use '../core/variables' as vars;
+@use '../core/mixins' as mixins;
+
+$sizes: (0, 1, 2, 3, 4, 5, 6);
+$sides: ('', 't', 'r', 'b', 'l');
+
+// Escape breakpoint names starting with digits for CSS class names
+@function escape-breakpoint($name) {
+  $first-char: string.slice($name, 1, 1);
+  @if str-index('0123456789', $first-char) {
+    // CSS unicode escape for digit followed by space to separate
+    @return '\\3' + $first-char + ' ' + string.slice($name, 2);
+  }
+  @return $name;
 }
 
-.p-2 {
-    padding: 0.5rem;
+// Generate base margin utilities
+@each $side in $sides {
+  @each $size in $sizes {
+    $class: if($side == '', 'm', 'm#{$side}');
+    .#{$class}-#{$size} {
+      margin-#{$side}: if($size == 0, 0, $size * 0.25)rem !important;
+    }
+  }
 }
 
-.p-3 {
-    padding: 0.75rem;
+// Generate base padding utilities
+@each $side in $sides {
+  @each $size in $sizes {
+    $class: if($side == '', 'p', 'p#{$side}');
+    .#{$class}-#{$size} {
+      padding-#{$side}: if($size == 0, 0, $size * 0.25)rem !important;
+    }
+  }
 }
 
-.p-4 {
-    padding: 1rem;
+// Generate responsive margin utilities
+@mixin generate-responsive-margins() {
+  @each $bp in map.keys(vars.$breakpoints) {
+    $escaped-bp: escape-breakpoint($bp);
+    @include mixins.respond-to($bp) {
+      @each $side in $sides {
+        @each $size in $sizes {
+          $class: if($side == '', 'm', 'm#{$side}');
+          .#{$escaped-bp}\:#{$class}-#{$size} {
+            margin-#{$side}: if($size == 0, 0, $size * 0.25)rem !important;
+          }
+        }
+      }
+    }
+  }
 }
 
-// Margin Utilities
-.m-1 {
-    margin: 0.25rem;
+// Generate responsive padding utilities
+@mixin generate-responsive-paddings() {
+  @each $bp in map.keys(vars.$breakpoints) {
+    $escaped-bp: escape-breakpoint($bp);
+    @include mixins.respond-to($bp) {
+      @each $side in $sides {
+        @each $size in $sizes {
+          $class: if($side == '', 'p', 'p#{$side}');
+          .#{$escaped-bp}\:#{$class}-#{$size} {
+            padding-#{$side}: if($size == 0, 0, $size * 0.25)rem !important;
+          }
+        }
+      }
+    }
+  }
 }
 
-.m-2 {
-    margin: 0.5rem;
-}
-
-.m-3 {
-    margin: 0.75rem;
-}
-
-.m-4 {
-    margin: 1rem;
-}
+// Include the responsive utilities
+@include generate-responsive-margins();
+@include generate-responsive-paddings();
